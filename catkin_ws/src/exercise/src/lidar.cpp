@@ -1,8 +1,8 @@
-#include "lidar.h"
+#include "multirobot_simulator/lidar.h"  // invece di "lidar.h"
+#include "multirobot_simulator/types.h"
 
 #include <opencv2/imgproc.hpp>
 
-#include "types.h"
 
 Lidar::Lidar(float fov_, float max_range_, int num_beams_,
              std::shared_ptr<World> w, const Pose& pose_)

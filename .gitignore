@@ -1,0 +1,22 @@
+# Build files
+build/
+devel/
+install/
+bin/
+*.o
+*.so
+
+# IDE and editor files
+.vscode/
+.idea/
+*~
+*.swp
+*.swo
+
+# Python
+*.pyc
+__pycache__/
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,21 @@
+<launch>
+  <!-- Arguments -->
+  <arg name="config_file" default="$(find multirobot_simulator)/config/cappero_1r.json"/>
+  <arg name="use_rviz" default="true"/>
+  <arg name="rviz_config" default="$(find multirobot_simulator)/config/rviz_config.rviz"/>
+  
+  <!-- Static transform publisher for map frame -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="map_to_odom" 
+        args="0 0 0 0 0 0 map odom"/>
+  
+  <!-- Multi-robot simulator node -->
+  <node name="multirobot_simulator_node" pkg="multirobot_simulator" type="multirobot_simulator_node" 
+        args="$(arg config_file)" output="screen">
+    <param name="config_file" value="$(arg config_file)"/>
+  </node>
+  
+  <!-- RViz visualization -->
+  <node if="$(arg use_rviz)" name="rviz" pkg="rviz" type="rviz" 
+        args="-d $(arg rviz_config)" required="false"/>
+        
+</launch>
