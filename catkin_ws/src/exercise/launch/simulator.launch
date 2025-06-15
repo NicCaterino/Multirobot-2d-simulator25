@@ -12,10 +12,11 @@
   <node name="multirobot_simulator_node" pkg="multirobot_simulator" type="multirobot_simulator_node" 
         args="$(arg config_file)" output="screen">
     <param name="config_file" value="$(arg config_file)"/>
+    <!-- FIX: Specifica il percorso corretto alla cartella map -->
+    <param name="map_directory" value="/home/lattinone/Desktop/Multirobot-2d-simulator25/map/"/>
   </node>
   
   <!-- RViz visualization -->
   <node if="$(arg use_rviz)" name="rviz" pkg="rviz" type="rviz" 
         args="-d $(arg rviz_config)" required="false"/>
-        
 </launch>
