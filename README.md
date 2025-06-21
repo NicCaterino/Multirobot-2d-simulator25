@@ -80,3 +80,23 @@ The wrapper pattern was chosen to preserve the original simulator functionality 
 The configuration system uses JSON files to define robot positions, sensor parameters, and parent-child relationships. This allows flexible multi-robot setups without code changes.
 
 ### File Organization
+
+catkin_ws/src/exercise/
+├── src/                    # Implementation files
+│   ├── main.cpp           # Main ROS node
+│   ├── robot.cpp          # Base robot class
+│   ├── lidar.cpp          # Base lidar class
+│   ├── world.cpp          # Simulation world
+│   ├── robot_ros.cpp      # ROS robot wrapper
+│   ├── lidar_ros.cpp      # ROS lidar wrapper
+│   └── config_parser.cpp  # JSON configuration parser
+├── include/multirobot_simulator/  # Header files
+├── launch/                # ROS launch files
+└── config/                # Configuration and RVIZ files
+
+
+### ROS Topics
+The system provides standard ROS interfaces. Control topics are /robot_N/cmd_vel for velocity commands. Sensor topics include /robot_N/odom for odometry data and /robot_N/base_scan for laser scans. All spatial relationships are maintained through TF transforms published automatically by the simulator.
+### Customization
+You can modify the simulation by editing JSON configuration files in the test_data directory. These files define robot positions, sensor parameters, and map files. The system supports adding more robots or changing sensor configurations as needed for your specific use case.
+
