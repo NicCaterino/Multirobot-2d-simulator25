@@ -52,15 +52,31 @@ catkin_make
 source devel/setup.bash
 roslaunch multirobot_simulator simulator.launch
 ```
+## Code Structure
 
-## Project Structure
+The project follows a wrapper pattern design that extends the original simulator classes with ROS functionality without modifying the base code.
 
-The repository contains a catkin workspace in the `catkin_ws` directory with the main package in `src/exercise`. Map files are located in the `map` directory, and configuration files are in `test_data`. The `run.sh` script handles the build process and configuration selection automatically.
+### Core Architecture
 
-## ROS Topics
+**Base Classes (Original Simulator):**
+- `World`: Manages the map, collision detection, and object rendering
+- `Robot`: Handles robot movement, physics, and basic drawing
+- `Lidar`: Simulates laser scanner with raycast algorithms
+- `WorldItem`: Base class for all objects in the simulation world
 
-The system provides standard ROS interfaces. Control topics are `/robot_N/cmd_vel` for velocity commands. Sensor topics include `/robot_N/odom` for odometry data and `/robot_N/base_scan` for laser scans. All spatial relationships are maintained through TF transforms published automatically by the simulator.
+**ROS Wrapper Classes:**
+- `RobotROS`: Extends Robot with ROS topic publishing/subscribing
+- `LidarROS`: Extends Lidar with sensor_msgs/LaserScan publishing
+- `ConfigParser`: Handles JSON configuration file parsing
 
-## Customization
+**Integration Layer:**
+- `MultiRobotSimulator`: Main ROS node that orchestrates everything
+- Launch files and configuration management
 
-You can modify the simulation by editing JSON configuration files in the `test_data` directory. These files define robot positions, sensor parameters, and map files. The system supports adding more robots or changing sensor configurations as needed for your specific use case.
+### Key Design Decisions
+
+The wrapper pattern was chosen to preserve the original simulator functionality while adding ROS capabilities. Each RobotROS instance subscribes to cmd_vel topics for control and publishes odometry data. LidarROS instances convert the ray-casting results into standard ROS LaserScan messages.
+
+The configuration system uses JSON files to define robot positions, sensor parameters, and parent-child relationships. This allows flexible multi-robot setups without code changes.
+
+### File Organization
