@@ -81,18 +81,26 @@ The configuration system uses JSON files to define robot positions, sensor param
 
 ### File Organization
 
-catkin_ws/src/exercise/
-├── src/                    # Implementation files
-│   ├── main.cpp           # Main ROS node
-│   ├── robot.cpp          # Base robot class
-│   ├── lidar.cpp          # Base lidar class
-│   ├── world.cpp          # Simulation world
-│   ├── robot_ros.cpp      # ROS robot wrapper
-│   ├── lidar_ros.cpp      # ROS lidar wrapper
-│   └── config_parser.cpp  # JSON configuration parser
-├── include/multirobot_simulator/  # Header files
-├── launch/                # ROS launch files
-└── config/                # Configuration and RVIZ files
+**Source Files (`src/`):**
+- `main.cpp` - Main ROS node
+- `robot.cpp` - Base robot class
+- `lidar.cpp` - Base lidar class  
+- `world.cpp` - Simulation world
+- `robot_ros.cpp` - ROS robot wrapper
+- `lidar_ros.cpp` - ROS lidar wrapper
+- `config_parser.cpp` - JSON configuration parser
+
+**Header Files (`include/multirobot_simulator/`):**
+- `robot.h`, `lidar.h`, `world.h`, `types.h` - Base classes
+- `robot_ros.h`, `lidar_ros.h`, `config_parser.h` - ROS wrappers
+
+**Configuration (`config/`):**
+- `rviz_config_laser.rviz` - RVIZ visualization setup with laser and odometry visualization
+- Launch files for different robot configurations
+
+**Test Data (`test_data/`):**
+- `multirobot.json` - Multi-robot configuration
+- Map PNG files for simulation environments
 
 
 ### ROS Topics
