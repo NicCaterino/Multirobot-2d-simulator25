@@ -49,11 +49,11 @@ include_directories(
 
 ## Declare a C++ library for shared classes
 add_library(${PROJECT_NAME}
-  # Base classes (existing)
+  # Base classes )
   src/world.cpp
   src/robot.cpp
   src/lidar.cpp
-  # ROS wrapper classes (new)
+  # ROS wrapper classes 
   src/robot_ros.cpp
   src/lidar_ros.cpp
   src/config_parser.cpp

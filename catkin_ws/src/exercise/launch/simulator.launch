@@ -2,7 +2,8 @@
   <!-- Arguments -->
   <arg name="config_file" default="$(find multirobot_simulator)/config/cappero_1r.json"/>
   <arg name="use_rviz" default="true"/>
-  <arg name="rviz_config" default="$(find multirobot_simulator)/config/rviz_config.rviz"/>
+  <!--OLDDD arg name="rviz_config" default="$(find multirobot_simulator)/config/rviz_config.rviz"/ -->
+  <arg name="rviz_config" default="$(find multirobot_simulator)/config/rviz_config_laser.rviz" />
   
   <!-- Static transform publisher for map frame -->
   <node pkg="tf2_ros" type="static_transform_publisher" name="map_to_odom" 
@@ -12,7 +13,7 @@
   <node name="multirobot_simulator_node" pkg="multirobot_simulator" type="multirobot_simulator_node" 
         args="$(arg config_file)" output="screen">
     <param name="config_file" value="$(arg config_file)"/>
-    <!-- FIX: Specifica il percorso corretto alla cartella map -->
+    <!-- Specifica il percorso map -->
     <param name="map_directory" value="/home/lattinone/Desktop/Multirobot-2d-simulator25/map/"/>
   </node>
   

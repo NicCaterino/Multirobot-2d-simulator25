@@ -4,12 +4,12 @@
   <version>1.0.0</version>
   <description>Multi-Robot 2D Simulator with ROS support</description>
 
-  <maintainer email="2054849.caterino@studenti.uniroma1.it">Nicolò Caterino</maintainer>
+  <maintainer email="caterino.2054849@studenti.uniroma1.it">Nicolò Caterino</maintainer>
   <license>MIT</license>
 
   <buildtool_depend>catkin</buildtool_depend>
   
-  <!-- ROS core dependencies -->
+  <!-- ROS  dependencies -->
   <build_depend>roscpp</build_depend>
   <build_depend>std_msgs</build_depend>
   <build_depend>geometry_msgs</build_depend>
