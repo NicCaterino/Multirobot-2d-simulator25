@@ -1,0 +1,31 @@
+Comandi std per testare mov robot 
+ROBOT_0=
+# Avanti
+rostopic pub /robot_0/cmd_vel geometry_msgs/Twist '{linear: {x: 0.5, y: 0, z: 0}, angular: {x: 0, y: 0, z: 0}}' -r 10
+
+# Indietro  
+rostopic pub /robot_0/cmd_vel geometry_msgs/Twist '{linear: {x: -0.5, y: 0, z: 0}, angular: {x: 0, y: 0, z: 0}}' -r 10
+
+# Gira sinistra
+rostopic pub /robot_0/cmd_vel geometry_msgs/Twist '{linear: {x: 0, y: 0, z: 0}, angular: {x: 0, y: 0, z: 0.5}}' -r 10
+
+# Gira destra
+rostopic pub /robot_0/cmd_vel geometry_msgs/Twist '{linear: {x: 0, y: 0, z: 0}, angular: {x: 0, y: 0, z: -0.5}}' -r 10
+
+
+
+ROBOT_1=
+# Stesso identico formato, cambia solo il numero:
+rostopic pub /robot_1/cmd_vel geometry_msgs/Twist '{linear: {x: 0.5, y: 0, z: 0}, angular: {x: 0, y: 0, z: 0}}' -r 10
+
+
+
+MONITORING= 
+
+
+# Vedi topic
+rostopic list | grep robot
+
+# Monitora posizione
+rostopic echo /robot_0/odom
+rostopic echo /robot_1/odom

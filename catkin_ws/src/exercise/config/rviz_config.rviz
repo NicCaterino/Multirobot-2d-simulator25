@@ -5,9 +5,8 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /test11
-        - /test11/Status1
       Splitter Ratio: 0.5
-    Tree Height: 295
+    Tree Height: 373
   - Class: rviz/Time
     Name: Time
     SyncMode: 0
@@ -52,8 +51,6 @@ Visualization Manager:
           Value: true
         robot_0_laser:
           Value: true
-        robot_base_link:
-          Value: true
       Marker Alpha: 1
       Marker Scale: 1
       Name: TF
@@ -65,10 +62,8 @@ Visualization Manager:
           odom:
             {}
           robot_0_base_link:
-            {}
-        robot_base_link:
-          robot_0_laser:
-            {}
+            robot_0_laser:
+              {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -100,7 +95,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 75.06312561035156
+      Distance: 23.07661247253418
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -116,9 +111,9 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.7803980112075806
+      Pitch: 0.45039764046669006
       Target Frame: <Fixed Frame>
-      Yaw: 0.7753980159759521
+      Yaw: 1.0303950309753418
     Saved: ~
 Window Geometry:
   Displays:
@@ -130,5 +125,5 @@ Window Geometry:
   Time:
     collapsed: false
   Width: 1280
-  X: 391
-  Y: 152
+  X: 389
+  Y: 63

@@ -3,7 +3,7 @@
 #include <opencv2/imgproc.hpp>
 
 Robot::Robot(float radius_, std::shared_ptr<World> w_, const Pose& pose_)
-    : radius(radius_), WorldItem(w_, pose_), tv(0.0), rv(0.0) {}
+    : radius(radius_), WorldItem(w_, pose_), tv(0.0), rv(0.0) {} //velocità a 0
 
 Robot::Robot(float radius_, std::shared_ptr<WorldItem> parent_,
              const Pose& pose_)

@@ -12,12 +12,12 @@
 class MultiRobotSimulator {
 public:
     MultiRobotSimulator() : nh_("~") {
-        // Parametri
+        // leggo parametri
         nh_.param<double>("simulation_frequency", sim_frequency_, 50.0);
         nh_.param<bool>("show_visualization", show_viz_, true);
         nh_.param<std::string>("map_directory", map_directory_, "../map/");
         
-        // Timer per simulazione
+        // timer per il loop di simulazione
         sim_timer_ = nh_.createTimer(ros::Duration(1.0 / sim_frequency_), 
                                     &MultiRobotSimulator::simulationStep, this);
         
@@ -47,24 +47,24 @@ private:
     ros::NodeHandle nh_;
     ros::Timer sim_timer_;
     
-    // Parametri
+    // parametri configurabili
     double sim_frequency_;
     bool show_viz_;
     std::string map_directory_;
     
-    // Simulazione
+    // oggetti della simulazione
     std::shared_ptr<World> world_;
     std::vector<std::shared_ptr<RobotROS>> robots_;
     std::vector<std::shared_ptr<LidarROS>> lidars_;
-    std::map<int, std::shared_ptr<WorldItem>> items_by_id_;
+    std::map<int, std::shared_ptr<WorldItem>> items_by_id_;  // per trovare i parent
     
     SimulationConfig config_;
     
     bool initializeSimulation() {
-        // Crea il mondo
+        // crea il mondo
         world_ = std::make_shared<World>();
         
-        // Carica la mappa
+        // carica la mappa
         std::string map_path = map_directory_ + config_.map_file;
         try {
             world_->loadFromImage(map_path);
@@ -74,7 +74,7 @@ private:
             return false;
         }
         
-        // Crea i robot
+        // crea tutti i robot
         for (const auto& robot_config : config_.robots) {
             auto robot = createRobot(robot_config);
             if (robot) {
@@ -84,7 +84,7 @@ private:
             }
         }
         
-        // Crea i lidar
+        // crea tutti i lidar
         for (const auto& lidar_config : config_.lidars) {
             auto lidar = createLidar(lidar_config);
             if (lidar) {
@@ -104,13 +104,13 @@ private:
         std::shared_ptr<RobotROS> robot;
         
         if (config.parent == -1) {
-            // Robot senza parent (attaccato al mondo)
+            // robot senza parent (attaccato direttamente al mondo)
             robot = std::make_shared<RobotROS>(
                 config.radius, world_, config.namespace_, config.frame_id,
                 config.max_tv, config.max_rv, config.pose
             );
         } else {
-            // Robot con parent (caso raro, ma supportato)
+            // robot con parent (caso raro ma supportato)
             auto parent_it = items_by_id_.find(config.parent);
             if (parent_it != items_by_id_.end()) {
                 robot = std::make_shared<RobotROS>(
@@ -130,13 +130,13 @@ private:
         std::shared_ptr<LidarROS> lidar;
         
         if (config.parent == -1) {
-            // Lidar senza parent (attaccato al mondo)
+            // lidar senza parent (attaccato al mondo)
             lidar = std::make_shared<LidarROS>(
                 config.fov, config.max_range, config.num_beams, world_,
                 config.namespace_, config.frame_id, config.pose
             );
         } else {
-            // Lidar con parent (tipicamente attaccato a un robot)
+            // lidar con parent (di solito un robot)
             auto parent_it = items_by_id_.find(config.parent);
             if (parent_it != items_by_id_.end()) {
                 lidar = std::make_shared<LidarROS>(
@@ -155,19 +155,19 @@ private:
     void simulationStep(const ros::TimerEvent& event) {
         if (!world_) return;
         
-        // Calcola dt
+        // calcolo dt per questo step
         static ros::Time last_time = ros::Time::now();
         ros::Time current_time = ros::Time::now();
         double dt = (current_time - last_time).toSec();
         last_time = current_time;
         
-        // Limita dt per evitare salti temporali grandi
+        // limito dt per evitare salti strani
         dt = std::min(dt, 0.1);
         
-        // Aggiorna la simulazione
+        // aggiorno la simulazione
         world_->timeTick(dt);
         
-        // Visualizzazione (se abilitata)
+        // visualizzazione se abilitata
         if (show_viz_) {
             world_->draw();
             char key = cv::waitKey(1);
@@ -182,7 +182,7 @@ private:
 int main(int argc, char** argv) {
     ros::init(argc, argv, "multirobot_simulator_node");
     
-    // Verifica argomenti
+    // controllo argomenti
     if (argc < 2) {
         ROS_ERROR("Usage: %s <config_file.json>", argv[0]);
         ROS_ERROR("Example: %s ../config/cappero_1r.json", argv[0]);
@@ -192,18 +192,18 @@ int main(int argc, char** argv) {
     std::string config_file = argv[1];
     ROS_INFO("Loading configuration from: %s", config_file.c_str());
     
-    // Crea il simulatore
+    // crea il simulatore
     MultiRobotSimulator simulator;
     
-    // Carica la configurazione e inizializza
+    // carica config e inizializza
     if (!simulator.loadConfiguration(config_file)) {
         ROS_ERROR("Failed to initialize simulation");
         return 1;
     }
     
-    ROS_INFO("Multirobot simulation started. Press 'q' or ESC in the visualization window to exit.");
+    ROS_INFO("Multirobot simulation started. Press 'q' or ESC to exit.");
     
-    // Avvia il loop ROS
+    // avvia il loop ROS
     ros::spin();
     
     ROS_INFO("Simulation terminated.");

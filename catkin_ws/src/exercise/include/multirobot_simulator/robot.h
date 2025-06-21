@@ -1,17 +1,18 @@
 #pragma once
 
-#include "types.h"
-#include "world.h"
+#include "multirobot_simulator/types.h"
+#include "multirobot_simulator/world.h"
 
 struct Robot : public WorldItem {
-  Robot(float radius_, std::shared_ptr<World> w_,
-        const Pose& pose_ = Pose::Identity());
-  Robot(float radius_, std::shared_ptr<WorldItem> parent_,
-        const Pose& pose_ = Pose::Identity());
+    // costruttori: robot attaccato al mondo o a un parent
+    Robot(float radius_, std::shared_ptr<World> w_,
+          const Pose& pose_ = Pose::Identity());
+    Robot(float radius_, std::shared_ptr<WorldItem> parent_,
+          const Pose& pose_ = Pose::Identity());
 
-  void draw() override;
-  void timeTick(float dt) override;
+    void draw() override;
+    void timeTick(float dt) override;
 
-  float radius;
-  float tv = 0, rv = 0;
+    float radius;          // raggio del robot
+    float tv = 0, rv = 0;  // velocità lineare e angolare
 };
