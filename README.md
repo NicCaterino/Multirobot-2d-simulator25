@@ -16,7 +16,6 @@ cd multirobot-ros-simulator
 ./run.sh
 ```
 
-The script will prompt you with three options. Choose option 1 to build only, option 2 to run only (if already built), or option 3 to build and run together. Most users will want option 3 for the first time setup.
 
 After building, the script asks which configuration to use. Option 1 loads a single robot with laser sensor, while option 2 loads two robots where only the first has a laser sensor.
 
